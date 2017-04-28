@@ -20,7 +20,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	requestedURI = strings.Replace(requestedURI, ":/", "://", 1)
 	log.Println("request: ", requestedURI)
 
-	from := r.Host + r.URL.Path
+	from := root + r.URL.Path
 	if redirect, ok := translate[from]; ok {
 		log.Println("redirecting from: ", from)
 		log.Println("redirecting to: ", redirect)
