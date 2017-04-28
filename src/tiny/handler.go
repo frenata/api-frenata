@@ -13,14 +13,14 @@ var root string
 
 func Handler(w http.ResponseWriter, r *http.Request) {
 	root = r.Host
+	if !strings.HasPrefix(root, "localhost") {
+		root = "https://" + root
+	}
 	requestedURI := strings.TrimPrefix(r.URL.String(), ROUTE)
 	requestedURI = strings.Replace(requestedURI, ":/", "://", 1)
 	log.Println("request: ", requestedURI)
 
 	from := r.Host + r.URL.Path
-	if !strings.HasPrefix(from, "localhost") {
-		from = "https://" + from
-	}
 	if redirect, ok := translate[from]; ok {
 		log.Println("redirecting from: ", from)
 		log.Println("redirecting to: ", redirect)
