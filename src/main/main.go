@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"timestamp"
+	"tiny"
 )
 
 const WELCOME string = `
@@ -14,6 +15,7 @@ Welcome to my collection of API microservices:
 
 	/timestamp/
 	/headers/
+	/tiny/
 	
 	...
 `
@@ -25,6 +27,7 @@ func main() {
 	http.HandleFunc("/", index)
 	http.HandleFunc(timestamp.ROUTE, timestamp.Handler)
 	http.HandleFunc(headers.ROUTE, headers.Handler)
+	http.HandleFunc(tiny.ROUTE, tiny.Handler)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
