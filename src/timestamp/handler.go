@@ -1,10 +1,8 @@
-package main
+package timestamp
 
 import (
 	"io"
-	"log"
 	"net/http"
-	"os"
 )
 
 const howto string = `
@@ -28,7 +26,7 @@ https://github.com/frenata/fcc/tree/master/timestamp/go
 
 // Converts the passed value to a time and writes a JSON response
 // including the natural and unix times.
-func timestamp(w http.ResponseWriter, r *http.Request) {
+func Handler(w http.ResponseWriter, r *http.Request) {
 	// write the instructions
 	if r.URL.String() == "/" {
 		io.WriteString(w, howto)
@@ -38,12 +36,4 @@ func timestamp(w http.ResponseWriter, r *http.Request) {
 	// write the JSON
 	response := GetTimeResponse(r.URL.String()[1:]).String()
 	io.WriteString(w, response)
-}
-
-func main() {
-	// get bound port of host system
-	port := os.Getenv("PORT")
-
-	http.HandleFunc("/", timestamp)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
 }

@@ -1,20 +1,18 @@
 package main
 
 import (
-	"io"
+	"headers"
 	"log"
 	"net/http"
 	"os"
+	"timestamp"
 )
-
-func requestHeader(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, GetHeaders(r.Header))
-}
 
 func main() {
 	// get bound port of host system
 	port := os.Getenv("PORT")
 
-	http.HandleFunc("/", requestHeader)
+	http.HandleFunc("/timestamp/", timestamp.Handler)
+	http.HandleFunc("/headers/", headers.Handler)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }

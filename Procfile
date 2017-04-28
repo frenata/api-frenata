@@ -1,1 +1,1 @@
-web: timestamp
+web: main

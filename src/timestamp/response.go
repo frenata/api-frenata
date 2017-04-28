@@ -1,4 +1,4 @@
-package main
+package timestamp
 
 import (
 	"encoding/json"
