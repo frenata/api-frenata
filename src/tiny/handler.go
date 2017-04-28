@@ -28,6 +28,12 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response := Shorten(requestedURI)
+	var response string
+	if requestedURI == "" {
+		response = "Simply add any URL after /tiny/"
+	} else {
+		response = Shorten(requestedURI)
+	}
+
 	io.WriteString(w, response)
 }
