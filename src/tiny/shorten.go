@@ -6,7 +6,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"net"
+	"net/url"
 	"os"
+	"strings"
 )
 
 const DB string = "redirect.json"
@@ -58,6 +61,18 @@ func init() {
 }
 
 func Shorten(requestedURI string) string {
+	//if valid := govalidator.IsHost(requestedURI); !valid {
+	if !strings.HasPrefix(requestedURI, "http") {
+		requestedURI = "http://" + requestedURI
+	}
+
+	u, _ := url.Parse(requestedURI)
+	log.Print(u)
+	if _, err := net.LookupCNAME(u.Host); err != nil {
+		log.Print(err)
+		return "{\"error\": \"URL invalid\"}"
+	}
+
 	redirect := NewResponse(requestedURI)
 	writeDB(redirect)
 	return redirect.String()
