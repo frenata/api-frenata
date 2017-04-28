@@ -12,7 +12,7 @@ func main() {
 	// get bound port of host system
 	port := os.Getenv("PORT")
 
-	http.HandleFunc("/timestamp/", timestamp.Handler)
+	http.HandleFunc(timestamp.ROUTE, timestamp.Handler)
 	http.HandleFunc("/headers/", headers.Handler)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }

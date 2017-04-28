@@ -3,13 +3,14 @@ package timestamp
 import (
 	"io"
 	"net/http"
+	"strings"
 )
 
-const howto string = `
+const HOWTO string = `
 Send a requested date or timestamp to /your-request to receive a JSON response back with both the unix epoch and human readable time.
 
 For example:
-https://timestamp-go.herokuapp.com/November 5, 2017
+https://api.frenata.net/timestamp/November 5, 2017
 
 will deliver the response:
 
@@ -21,19 +22,22 @@ will deliver the response:
 Several date formats are supported, try experimenting!
 
 Source code can be found at:
-https://github.com/frenata/fcc/tree/master/timestamp/go
+https://github.com/frenata/api-frenata
 `
+
+const ROUTE string = "/timestamp/"
 
 // Converts the passed value to a time and writes a JSON response
 // including the natural and unix times.
 func Handler(w http.ResponseWriter, r *http.Request) {
 	// write the instructions
-	if r.URL.String() == "/" {
-		io.WriteString(w, howto)
+	if r.URL.String() == ROUTE {
+		io.WriteString(w, HOWTO)
 		return
 	}
 
 	// write the JSON
-	response := GetTimeResponse(r.URL.String()[1:]).String()
+	request := strings.TrimPrefix(r.URL.String(), ROUTE)
+	response := GetTimeResponse(request).String()
 	io.WriteString(w, response)
 }
