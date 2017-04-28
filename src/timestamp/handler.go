@@ -38,6 +38,6 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	// write the JSON
 	request := strings.TrimPrefix(r.URL.String(), ROUTE)
-	response := GetTimeResponse(request).String()
+	response := GetTime(request)
 	io.WriteString(w, response)
 }

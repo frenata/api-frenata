@@ -48,7 +48,7 @@ func (tr TimeResponse) String() string {
 }
 
 // Given a URL request, generates a JSON response string
-func GetTimeResponse(request string) TimeResponse {
+func GetTime(request string) string {
 	// process URL to get request
 	if strings.HasSuffix(request, "/") {
 		request = request[:len(request)-1]
@@ -57,16 +57,16 @@ func GetTimeResponse(request string) TimeResponse {
 	log.Println("request: " + request)
 
 	// get a time from the request
-	reqTime, err := getTime(request)
+	reqTime, err := parseTime(request)
 	if err != nil {
-		return TimeResponse{}
+		return TimeResponse{}.String()
 	}
-	return NewTimeResponse(*reqTime)
+	return NewTimeResponse(*reqTime).String()
 }
 
 // Given a request, try to parse it into a date
 // Returns an error if no way to parse it is found
-func getTime(request string) (*time.Time, error) {
+func parseTime(request string) (*time.Time, error) {
 	// First try the human formats
 	for _, layout := range layouts {
 		timestamp, err := time.Parse(layout, request)
