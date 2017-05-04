@@ -12,15 +12,20 @@ import (
 	"strings"
 )
 
+// The flat database file
 const DB string = "redirect.json"
 
+// in memory map to translate short URLs to long URLs
 var translate map[string]string
 
+// JSON response structure
 type ShortenerResponse struct {
 	Original *string `json:"original_url"`
 	Short    *string `json:"short_url"`
 }
 
+// NewResponse creates a short URL from a long URL, adds to the
+// translate map, then returns the Response object.
 func NewResponse(original string) ShortenerResponse {
 	buff := []byte(original)
 	hash := fmt.Sprintf("%x", buff)
@@ -32,11 +37,13 @@ func NewResponse(original string) ShortenerResponse {
 	return ShortenerResponse{&original, &short}
 }
 
+// JSON pretty-print the response
 func (sr ShortenerResponse) String() string {
 	json, _ := json.MarshalIndent(sr, "", "    ")
 	return string(json)
 }
 
+// When the library first loads, read from the database and build the translate map from the objects in it.
 func init() {
 	translate = make(map[string]string)
 
@@ -60,6 +67,8 @@ func init() {
 	}
 }
 
+// Shorten takes a URL and returns a JSON response containing that URL
+// and the mapped short URL.
 func Shorten(requestedURI string) string {
 	//if valid := govalidator.IsHost(requestedURI); !valid {
 	if !strings.HasPrefix(requestedURI, "http") {
@@ -78,6 +87,7 @@ func Shorten(requestedURI string) string {
 	return redirect.String()
 }
 
+// Appends new responses to the database.
 func writeDB(sr ShortenerResponse) {
 	f, err := os.OpenFile(DB, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 	if err != nil {
