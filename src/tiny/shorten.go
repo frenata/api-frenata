@@ -53,11 +53,12 @@ func init() {
 		return
 	}
 
+	log.Println("Reading shortened URL database")
 	for _, line := range bytes.Split(buff, []byte("\n")) {
 		if len(line) == 0 {
 			return
 		}
-		log.Print(line)
+		//log.Print(line)
 		var sr ShortenerResponse
 		err := json.Unmarshal(line, &sr)
 		if err != nil {
