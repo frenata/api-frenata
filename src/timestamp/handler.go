@@ -38,6 +38,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	// write the JSON
 	request := strings.TrimPrefix(r.URL.String(), ROUTE)
-	response := GetTime(request)
-	io.WriteString(w, response)
+	response := getTime(request)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write([]byte(response))
 }

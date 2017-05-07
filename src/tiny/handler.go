@@ -1,7 +1,6 @@
 package tiny
 
 import (
-	"io"
 	"log"
 	"net/http"
 	"strings"
@@ -32,14 +31,15 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// get a response from Shorten
+	// get a response from shorten
 	var response string
 	if requestedURI == "" {
 		response = "Simply add any URL after /tiny/"
 	} else {
-		response = Shorten(requestedURI)
+		response = shorten(requestedURI)
 	}
 
 	// write the response to the browser
-	io.WriteString(w, response)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write([]byte(response))
 }

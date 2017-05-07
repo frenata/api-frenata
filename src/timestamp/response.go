@@ -48,7 +48,7 @@ func (tr TimeResponse) String() string {
 }
 
 // Given a URL request, generates a JSON response string
-func GetTime(request string) string {
+func getTime(request string) string {
 	// process URL to get request
 	if strings.HasSuffix(request, "/") {
 		request = request[:len(request)-1]

@@ -19,8 +19,8 @@ func (hr HeadersResponse) String() string {
 	return string(json)
 }
 
-// GetHeaders parses the desired information and returns a JSON object
-func GetHeaders(headers http.Header) string {
+// getHeaders parses the desired information and returns a JSON object
+func getHeaders(headers http.Header) string {
 	ip := getIP(headers)
 	lang := getLanguage(headers)
 	os := getOS(headers)

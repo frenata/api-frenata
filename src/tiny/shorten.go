@@ -68,9 +68,9 @@ func init() {
 	}
 }
 
-// Shorten takes a URL and returns a JSON response containing that URL
+// shorten takes a URL and returns a JSON response containing that URL
 // and the mapped short URL.
-func Shorten(requestedURI string) string {
+func shorten(requestedURI string) string {
 	//if valid := govalidator.IsHost(requestedURI); !valid {
 	if !strings.HasPrefix(requestedURI, "http") {
 		requestedURI = "http://" + requestedURI

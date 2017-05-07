@@ -27,12 +27,15 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	} else if r.URL.String() == ROUTE+"latest/" ||
 		r.URL.String() == ROUTE+"latest" {
-		io.WriteString(w, getSearchHistory())
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(getSearchHistory()))
 		return
 	}
 
 	// write the JSON
 	request := strings.TrimPrefix(r.URL.String(), ROUTE)
 	response := imageSearch(request)
-	io.WriteString(w, response)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write([]byte(response))
 }
