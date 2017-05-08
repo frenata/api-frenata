@@ -105,7 +105,7 @@ func imageSearch(request string) string {
 		}
 	}
 
-	apikey := "7c16845b11cf78f1c92fc825345df211"
+	apikey := "94c93cc0bc76bd5ce81cd3b3f5a261f8"
 	url := fmt.Sprintf(
 		"https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%s&text=%s&page=%d&format=json&nojsoncallback=1",
 		apikey,
@@ -130,6 +130,8 @@ func imageSearch(request string) string {
 
 	var objmap map[string]*json.RawMessage
 	json.Unmarshal(body, &objmap)
+	//log.Println(string(body))
+
 	var photomap map[string]*json.RawMessage
 	json.Unmarshal(*objmap["photos"], &photomap)
 	ida := make(ImageDataArray, 0)
