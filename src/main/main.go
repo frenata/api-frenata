@@ -1,6 +1,7 @@
 package main
 
 import (
+	"files"
 	"headers"
 	"images"
 	"io"
@@ -18,6 +19,7 @@ Welcome to my collection of API microservices:
 	/headers/
 	/tiny/
 	/images/
+	/files/
 	...
 `
 
@@ -30,6 +32,8 @@ func main() {
 	http.HandleFunc(headers.ROUTE, headers.Handler)
 	http.HandleFunc(tiny.ROUTE, tiny.Handler)
 	http.HandleFunc(images.ROUTE, images.Handler)
+	http.HandleFunc(files.ROUTE, files.Handler)
+	http.HandleFunc("/files/", files.Handler)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
