@@ -22,7 +22,9 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 		_, header, err := r.FormFile("upload")
 		if err != nil {
-			log.Fatal(err)
+			log.Println("No file uploaded.")
+			http.Redirect(w, r, ROUTE, 301)
+			return
 		}
 
 		w.Header().Set("Content-Type", "application/json")
