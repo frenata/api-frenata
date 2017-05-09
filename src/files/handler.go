@@ -2,7 +2,6 @@ package files
 
 import (
 	"html/template"
-	"io"
 	"log"
 	"net/http"
 )
@@ -19,8 +18,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		}
 		t.Execute(w, nil)
 	} else {
-		r.ParseForm()
+		r.ParseMultipartForm(32 << 20)
 
-		io.WriteString(w, r.Form["test"][0])
+		_, header, err := r.FormFile("upload")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(getFileMetadata(header)))
 	}
 }
