@@ -8,8 +8,9 @@ import (
 )
 
 type FileMetadataResponse struct {
-	Filename string `json:"filename"`
-	Size     int64  `json:"size"`
+	Filename    string `json:"filename"`
+	Size        int64  `json:"size"`
+	ContentType string `json:"content-type"`
 }
 
 // pretty print the values in JSON format
@@ -20,6 +21,9 @@ func (fr FileMetadataResponse) String() string {
 
 func getFileMetadata(header *multipart.FileHeader) string {
 	filename := header.Filename
+	contentType := header.Header["Content-Type"][0]
+	log.Println(header.Header)
+
 	file, err := header.Open()
 	if err != nil {
 		log.Fatal(err)
@@ -42,5 +46,5 @@ func getFileMetadata(header *multipart.FileHeader) string {
 		size = bytes
 	}
 
-	return FileMetadataResponse{filename, size}.String()
+	return FileMetadataResponse{filename, size, contentType}.String()
 }
