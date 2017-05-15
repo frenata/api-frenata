@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"log"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -29,10 +30,12 @@ type TimeResponse struct {
 }
 
 // NewTimeResponse generates a JSON response from a given time
-func NewTimeResponse(t time.Time) TimeResponse {
+func NewTimeResponse(t time.Time, offset int) TimeResponse {
 	theirTime := t.Format("3:04pm utc-07")
-	myTime := t.Local().Format("3:04pm utc-07")
 
+	zone := time.FixedZone("user", offset*60*60)
+
+	myTime := t.In(zone).Format("3:04pm utc-07")
 	return TimeResponse{&theirTime, &myTime}
 }
 
@@ -49,14 +52,23 @@ func getTime(request string) string {
 		request = request[:len(request)-1]
 	}
 	request = strings.Replace(request, "%20", " ", -1)
+	strs := strings.Split(request, "/")
+	offset, err := strconv.Atoi(strs[0])
+	if err != nil || len(strs) < 2 {
+		return TimeResponse{}.String()
+	}
+	request = strs[1]
+
 	log.Println("request: " + request)
+	log.Println("offset: ", offset)
 
 	// get a time from the request
 	reqTime, err := parseTime(request)
 	if err != nil {
 		return TimeResponse{}.String()
 	}
-	return NewTimeResponse(*reqTime).String()
+
+	return NewTimeResponse(*reqTime, offset).String()
 }
 
 // Given a request, try to parse it into a date

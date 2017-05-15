@@ -9,9 +9,10 @@ import (
 const HOWTO string = `
 Request a time to be translated to your TZ like so:
 
-/11:30am utc+04
+/-2/11:30am utc+04
 
-minutes, am/pm, 'utc' are all optional
+minutes, am/pm, 'utc' are all optional,
+but you must include your TZ offset as the first part of the request
 `
 
 const ROUTE string = "/mytime/"
