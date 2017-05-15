@@ -21,6 +21,7 @@ var layouts = []string{
 	"3pm-07",
 	"3pm",
 	"15",
+	"15:04",
 }
 
 // TimeResponse represents a JSON response
