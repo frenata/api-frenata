@@ -6,6 +6,7 @@ import (
 	"images"
 	"io"
 	"log"
+	"mytime"
 	"net/http"
 	"os"
 	"timestamp"
@@ -20,6 +21,7 @@ Welcome to my collection of API microservices:
 	/tiny/
 	/images/
 	/files/
+	/mytime/
 	...
 `
 
@@ -29,6 +31,7 @@ func main() {
 
 	http.HandleFunc("/", index)
 	http.HandleFunc(timestamp.ROUTE, timestamp.Handler)
+	http.HandleFunc(mytime.ROUTE, mytime.Handler)
 	http.HandleFunc(headers.ROUTE, headers.Handler)
 	http.HandleFunc(tiny.ROUTE, tiny.Handler)
 	http.HandleFunc(images.ROUTE, images.Handler)
