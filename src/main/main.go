@@ -3,8 +3,8 @@ package main
 import (
 	"files"
 	"headers"
+	"html/template"
 	"images"
-	"io"
 	"log"
 	"mytime"
 	"net/http"
@@ -12,18 +12,6 @@ import (
 	"timestamp"
 	"tiny"
 )
-
-const WELCOME string = `
-Welcome to my collection of API microservices:
-
-	/timestamp/
-	/headers/
-	/tiny/
-	/images/
-	/files/
-	/mytime/
-	...
-`
 
 func main() {
 	// get bound port of host system
@@ -41,5 +29,9 @@ func main() {
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, WELCOME)
+	t, err := template.ParseFiles("static/index.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+	t.Execute(w, nil)
 }
