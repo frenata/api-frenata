@@ -1,16 +1,16 @@
 package main
 
 import (
-	"files"
-	"headers"
-	"html/template"
-	"images"
+	"github.com/frenata/api-frenata/files"
+	"github.com/frenata/api-frenata/headers"
+        "html/template"
+	"github.com/frenata/api-frenata/images"
 	"log"
-	"mytime"
+	"github.com/frenata/api-frenata/mytime"
 	"net/http"
 	"os"
-	"timestamp"
-	"tiny"
+	"github.com/frenata/api-frenata/timestamp"
+	"github.com/frenata/api-frenata/tiny"
 )
 
 func main() {
