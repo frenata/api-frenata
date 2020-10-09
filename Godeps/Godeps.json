@@ -1,0 +1,9 @@
+{
+	"ImportPath": "github.com/frenata/api-frenata",
+	"GoVersion": "go1.12",
+	"GodepVersion": "v80",
+	"Packages": [
+		"./..."
+	],
+	"Deps": []
+}
