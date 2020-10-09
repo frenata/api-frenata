@@ -8,5 +8,3 @@ A small collection of Go microservices
 * files: returns useful metadata about an uploaded file
 * tiny: URL shortener service
 * mytime: translate times across timezones
-
-View a deployed version of these services at [api.frenata.net](https://api.frenata.net)
