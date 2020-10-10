@@ -8,3 +8,6 @@ A small collection of Go microservices
 * files: returns useful metadata about an uploaded file
 * tiny: URL shortener service
 * mytime: translate times across timezones
+
+View a deployed version of these services at [fcc-apis.frenata.net](https://fcc-apis.frenata.net)
+
