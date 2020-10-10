@@ -9,5 +9,4 @@ A small collection of Go microservices
 * tiny: URL shortener service
 * mytime: translate times across timezones
 
-View a deployed version of these services at [fcc-apis.frenata.net](https://fcc-apis.frenata.net)
-
+View a deployed version of these services at [fcc-apis.frenata.net](http://fcc-apis.frenata.net)
